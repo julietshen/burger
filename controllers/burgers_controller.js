@@ -16,21 +16,15 @@ router.get("/", function(req, res) {
 });
 
 router.post("/", function(req, res) {
-  burger.create(, [
-    req.body.name, req.body.sleepy
-  ], function() {
+  burger.create(req.body.name, function() {
     res.redirect("/");
   });
 });
 
 router.put("devour/:id", function(req, res) {
-  var condition = "id = " + req.params.id;
-
-  console.log("condition", condition);
-
-  burger.update({
-    sleepy: req.body.sleepy
-  }, condition, function() {
+  burger.update(id, function() {
     res.redirect("/");
   });
 });
+
+module.exports = router;
