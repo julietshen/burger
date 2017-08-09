@@ -7,14 +7,17 @@
         callback(res);
       });
     },
-    
-    create: function(cols, vals, callback) {
-      orm.create("burgers", cols, vals, function(res) {
+
+    create: function(name, callback) {
+      var date = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')
+      orm.create("burgers", ["burger_name", "devoured", "date"], [name, "false", date], function(res) {
         callback(res);
       });
     },
-    update: function(objColVals, condition, callback) {
-      orm.update("burgers", objColVals, condition, function(res) {
+
+    devour: function(id, callback) {
+      var condition = "id = " + id;
+      orm.update("burgers", { devoured: "true" }, condition, function(res) {
         callback(res);
       });
     },
