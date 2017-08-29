@@ -9,17 +9,18 @@
     },
 
     create: function(name, callback) {
-      var date = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')
-      orm.create("burgers", ["burger_name", "devoured", "date"], [name, "false", date], function(res) {
-        callback(res);
-      });
+      orm.create("burgers", [
+        "burger_name",
+        "devoured"
+      ], [
+        name, "false"
+      ], callback);
     },
 
-    devour: function(id, callback) {
+    update: function(id, callback) {
       var condition = "id = " + id;
-      orm.update("burgers", { devoured: "true" }, condition, function(res) {
-        callback(res);
-      });
-    },
+      orm.update("burgers", { devoured: "true" }, condition, callback);
+    }
+  };
 
-  }
+  module.exports = burger;

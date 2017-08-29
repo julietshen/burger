@@ -6,23 +6,29 @@ var burger = require("../models/burger.js");
 
 // Create all our routes and set up logic within those routes where required.
 router.get("/", function(req, res) {
-  burger.all(function(data) {
-    var burgerObject = {
-      burgers: data
-    };
-    console.log(burgerObject);
-    res.render("index", burgerObject);
+  res.redirect("/burgers");
+})
+
+router.get("/", function(req, res) {
+  burger.all(function(burgerdata) {
+    // var burgerObject = {
+    //   burgers: data
+    // };
+    // console.log(burgerObject);
+    res.render("index", { burger_data: burgerData });
   });
 });
 
-router.post("/", function(req, res) {
-  burger.create(req.body.name, function() {
+router.post("/burgers/create", function(req, res) {
+  burger.create(req.body.name, function(result) {
+    console.log(result);
     res.redirect("/");
   });
 });
 
-router.put("devour/:id", function(req, res) {
-  burger.update(id, function() {
+router.put("/burgers/update", function(req, res) {
+  burger.update(req.body.burger_id, function(result) {
+    console.log(result);
     res.redirect("/");
   });
 });
